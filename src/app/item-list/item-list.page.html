@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button [routerLink]="['/home']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Item List</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col class="ion-align-self-center">
+                <h4>Name</h4>
+            </ion-col>
+            <ion-col class="ion-align-self-center">
+                <h4>Quantity</h4>
+            </ion-col>
+            <ion-col class="ion-align-self-center">
+                <h4>Action</h4>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+        <ion-row *ngFor="let items of myShoppingList; let i = index" [attr.data-index]="i">
+            <ion-col class="ion-align-self-center">
+                {{items.name}}
+            </ion-col>
+            <ion-col class="ion-align-self-center">
+                {{items.quantity}}
+            </ion-col>
+            <ion-col class="ion-align-self-center">
+                <ion-button size="small" fill="outline" (click)="navigateToEditItem(i)">
+                    Edit
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-button expand="block" (click)="navigateToAddItem()">Add Item</ion-button>
+    <ion-button expand="block" (click)="clearList()">Clear List</ion-button>
+    <ion-button expand="block" (click)="readStorage()">Load List</ion-button>
+
+</ion-content>
