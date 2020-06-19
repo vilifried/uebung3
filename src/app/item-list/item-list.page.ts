@@ -19,16 +19,16 @@ export class ItemListPage implements OnInit {
     }
 
     navigateToEditItem(parameter: number) {
-        this.router.navigate(['/edit-item', {detailId: parameter}]);
+        this.router.navigate(['/edit-item', {itemId: parameter}]);
     }
 
-    readStorage() {
-        this.storage.get('localShoppinglist').then((val) => {
+    async readStorage() {
+        await this.storage.get('localShoppinglist').then((val) => {
             this.myShoppingList = val;
         });
         if (this.myShoppingList === null) {
             this.myShoppingList = [];
-            this.storage.set('localShoppinglist', this.myShoppingList);
+            await this.storage.set('localShoppinglist', this.myShoppingList);
         }
     }
 
@@ -38,6 +38,6 @@ export class ItemListPage implements OnInit {
     }
 
     ngOnInit() {
-        this.readStorage();
+        this.readStorage().then(r => console.log('RR' + r));
     }
 }

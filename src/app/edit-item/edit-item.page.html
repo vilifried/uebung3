@@ -1,12 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button [routerLink]="['/item-list']"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Edit Item</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button [routerLink]="['/item-list']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Edit Item</ion-title>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content>
+    <ion-item>
+        <ion-label position="fixed">Name</ion-label>
+        <ion-input clearInput [(ngModel)]="itemToEdit"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="fixed">Quantity</ion-label>
+        <ion-input clearInput type="number" [(ngModel)]="quantityToEdit"></ion-input>
+    </ion-item>
 
+    <ion-button expand="block" (click)="editItem()">Save</ion-button>
 </ion-content>

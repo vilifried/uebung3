@@ -16,10 +16,8 @@ export class AddItemPage implements OnInit {
     }
 
     addItem() {
-        this.readStorage();
         this.myShoppingList.push({name: this.itemToAdd, quantity: this.quantityToAdd});
         this.storage.set('localShoppinglist', this.myShoppingList);
-        this.readStorage();
         this.clearInputFields();
     }
 
@@ -28,8 +26,8 @@ export class AddItemPage implements OnInit {
         this.quantityToAdd = null;
     }
 
-    readStorage() {
-        this.storage.get('localShoppinglist').then((val) => {
+    async readStorage() {
+        await this.storage.get('localShoppinglist').then((val) => {
             this.myShoppingList = val;
         });
     }
