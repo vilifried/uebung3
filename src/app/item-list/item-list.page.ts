@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Storage} from '@ionic/storage';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LocalStorageServiceService} from '../services/local-storage-service.service';
 
 @Component({
     selector: 'app-item-list',
@@ -11,7 +12,8 @@ export class ItemListPage implements OnInit {
 
     myShoppingList: Array<{ name: string, quantity: number }>;
 
-    constructor(private route: ActivatedRoute, private router: Router, private storage: Storage) {
+    constructor(private route: ActivatedRoute, private router: Router,
+                private storage: Storage, private localStorageService: LocalStorageServiceService) {
     }
 
     navigateToAddItem() {
@@ -22,22 +24,20 @@ export class ItemListPage implements OnInit {
         this.router.navigate(['/edit-item', {itemId: parameter}]);
     }
 
-    async readStorage() {
-        await this.storage.get('localShoppinglist').then((val) => {
-            this.myShoppingList = val;
+    load() {
+        this.localStorageService.readStorage().then((value) => {
+            this.myShoppingList = value;
         });
-        if (this.myShoppingList === null) {
-            this.myShoppingList = [];
-            await this.storage.set('localShoppinglist', this.myShoppingList);
-        }
     }
 
     clearList() {
         this.storage.clear().then(r => console.log(r + 'cleared'));
-        this.readStorage();
+        this.load();
     }
 
     ngOnInit() {
-        this.readStorage();
+        this.localStorageService.readStorage().then((value) => {
+            this.myShoppingList = value;
+        });
     }
 }
