@@ -38,6 +38,6 @@ export class ItemListPage implements OnInit {
     }
 
     ngOnInit() {
-        this.readStorage().then(r => console.log('RR' + r));
+        this.readStorage();
     }
 }
